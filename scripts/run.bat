@@ -16,3 +16,4 @@ rem 5秒间隔
 timeout 5
 cls
 %script_path%\DDMonitor.exe
+pause

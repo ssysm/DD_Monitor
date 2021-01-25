@@ -4,14 +4,15 @@ DD监控室主界面进程 包含对所有子页面的初始化、排版管理
 以及软件启动和退出后的一些操作
 新增全局鼠标坐标跟踪 用于刷新鼠标交互效果
 '''
-import os, sys, json, time, shutil, logging, faulthandler, datetime, signal
+import os, sys, json, time, shutil, logging, faulthandler, traceback, datetime, threading, subprocess
 from PyQt5.Qt import *
 from LayoutPanel import LayoutSettingPanel
 # from VideoWidget import PushButton, Slider, VideoWidget  # 已弃用
 from VideoWidget_vlc import PushButton, Slider, VideoWidget
 from LiverSelect import LiverPanel
 from pay import pay
-
+from ReportException import thraedingExceptionHandler, uncaughtExceptionHandler,\
+    unraisableExceptionHandler, getSystemInfo
 application_path = ""
 
 def _translate(context, text, disambig):
@@ -749,6 +750,9 @@ if __name__ == '__main__':
     app.setFont(QFont('微软雅黑', 9))
     # 设置log
     faulthandler.enable(all_threads=True)
+    sys.excepthook = uncaughtExceptionHandler
+    sys.unraisablehook = unraisableExceptionHandler
+    threading.excepthook = thraedingExceptionHandler
     log_path = os.path.join(application_path, r'logs/log-%s.txt' % datetime.datetime.today().strftime('%Y-%m-%d') )
     logging.basicConfig(
         level=logging.INFO,
@@ -758,6 +762,9 @@ if __name__ == '__main__':
             logging.StreamHandler()
         ]
     )
+    sysInfo, gpuInfo = getSystemInfo()
+    logging.info("系统信息: %s" % str(sysInfo))
+    logging.info("GPU信息: %s" % str(gpuInfo))
     # 欢迎页面
     splash = QSplashScreen(QPixmap(os.path.join(application_path, 'utils/splash.jpg')), Qt.WindowStaysOnTopHint)
     progressBar = QProgressBar(splash)
@@ -772,4 +779,8 @@ if __name__ == '__main__':
     mainWindow.showMaximized()
     mainWindow.show()
     splash.hide()
-    sys.exit(app.exec_())
+    try:
+        app.exec_()
+    except Exception as e:
+        logging.error(e)
+    sys.exit()
