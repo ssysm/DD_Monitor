@@ -27,8 +27,8 @@ jobs:
 
     runs-on: windows-latest
     env:
-     PYTHON_VLC_MODULE_PATH: ${{env.GITHUB_WORKSPACE}}\\vlc-3.0.12
-     PYTHON_VLC_LIB_PATH: ${{env.GITHUB_WORKSPACE}}\\vlc-3.0.12\\libvlc.dll
+     PYTHON_VLC_MODULE_PATH: ${{github.workspace}}\\vlc-3.0.12
+     PYTHON_VLC_LIB_PATH: ${{github.workspace}}\\vlc-3.0.12\\libvlc.dll
     steps:
     - uses: actions/checkout@v2
     - uses: suisei-cn/actions-download-file@v1
