@@ -29,6 +29,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: engineerd/configurator@v0.0.1
+      with:
+        name: "vlc"
+        url: "https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.12-win64.zip"
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
