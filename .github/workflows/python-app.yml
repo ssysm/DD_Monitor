@@ -38,7 +38,7 @@ jobs:
     - name: Install Packages
       run: pip install -r requirements.txt
     - name: Build
-      run: "scripts\build_win.sh"
+      run: "scripts/build_win.bat"
     
   build-macos:
 
