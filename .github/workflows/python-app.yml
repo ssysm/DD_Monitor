@@ -21,7 +21,7 @@ jobs:
     - name: Install Packages
       run: pip install -r requirements.txt
     - name: Build
-      run: scripts\build_linux.sh
+      run: "scripts/build_linux.sh"
   
   build-windows:
 
@@ -38,7 +38,7 @@ jobs:
     - name: Install Packages
       run: pip install -r requirements.txt
     - name: Build
-      run: scripts/build_win.sh
+      run: "scripts\build_win.sh"
     
   build-macos:
 
@@ -55,5 +55,5 @@ jobs:
     - name: Install Packages
       run: pip install -r requirements.txt
     - name: Build
-      run: scripts/build_macos.sh
+      run: "scripts/build_macos.sh"
   
