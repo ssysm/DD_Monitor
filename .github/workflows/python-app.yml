@@ -33,6 +33,7 @@ jobs:
       with:
         name: "vlc"
         url: "https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.12-win64.zip"
+        pathInArchive: "vlc-3.0.12/libvlc.dll" 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
