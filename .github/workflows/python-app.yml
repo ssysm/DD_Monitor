@@ -36,7 +36,11 @@ jobs:
         url: "https://download.videolan.org/pub/videolan/vlc/last/win64/vlc-3.0.12-win64.zip"
         target: .
     - name: Extract VLC
-      run: powershell.exe Expand-Archive -Path vlc-3.0.12-win64.zip -DestinationPath .
+      run: |
+        powershell.exe Expand-Archive -Path vlc-3.0.12-win64.zip -DestinationPath .
+        powershell.exe Move-Item -Path .\vlc-3.0.12\libvlc.dll -Destination .
+        powershell.exe Move-Item -Path .\vlc-3.0.12\libvlccore.dll -Destination .
+        powershell.exe Move-Item -Path .\vlc-3.0.12\plugins -Destination .
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
